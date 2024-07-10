@@ -59,7 +59,7 @@ Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5
 O layout da aplicação é bem simples e objetivo:
 
 <h1 align="center">
-    <img alt="NextLevelWeek" title="#NextLevelWeek" src="./Imagens/TelaConsultaCep.png" />
+    <img alt="Tela" title="Tela" src="./Imagens/TelaConsultaCep.png" />
 </h1>
 
 ---
@@ -109,6 +109,15 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [Site](https://firebirdsql.org/en/firebird-2-5/)
 
 ### 🧭 Rodando a aplicação
+
+
+💡**Acertar os diretórios de compilação do projeto no menu Project>Options>Delphi Compiler> Target**
+
+
+<h1 align="center">
+    <img alt="Tela" title="Tela" src="./Imagens/delphi_dir.png" />
+</h1>
+
 
 Ao compilar o projeto no Delphi, será gerado o arquivo **SoftplanConsultaCep.exe** dentro da pasta Bin.
 
