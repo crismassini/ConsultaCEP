@@ -73,8 +73,8 @@
         <Icon_MainIcon>..\Imagens\logo.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>..\Imagens\Captura de tela 2024-07-07 233332.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\Imagens\Captura de tela 2024-07-07 233332.png</UWP_DelphiLogo150>
-        <DCC_DcuOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCP\</DCC_DcuOutput>
-        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCP\</DCC_DcpOutput>
+        <DCC_DcuOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcuOutput>
+        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcpOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>vclwinx;DataSnapServer;fmx;emshosting;vclie;DbxCommonDriver;bindengine;IndyIPCommon;VCLRESTComponents;DBXMSSQLDriver;FireDACCommonODBC;emsclient;FireDACCommonDriver;appanalytics;IndyProtocols;vclx;IndyIPClient;dbxcds;vcledge;bindcompvclwinx;FmxTeeUI;emsedge;bindcompfmx;DBXFirebirdDriver;inetdb;FireDACSqliteDriver;DbxClientDriver;FireDACASADriver;Tee;soapmidas;vclactnband;TeeUI;fmxFireDAC;dbexpress;FireDACInfxDriver;DBXMySQLDriver;VclSmp;inet;DataSnapCommon;vcltouch;fmxase;DBXOdbcDriver;dbrtl;FireDACDBXDriver;FireDACOracleDriver;fmxdae;TeeDB;FireDACMSAccDriver;CustomIPTransport;FireDACMSSQLDriver;DataSnapIndy10ServerTransport;DataSnapConnectors;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;IndySystem;FireDACTDataDriver;vcldb;vclFireDAC;bindcomp;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;IndyCore;RESTBackendComponents;bindcompdbx;rtl;FireDACMySQLDriver;FireDACADSDriver;RESTComponents;DBXSqliteDriver;vcl;IndyIPServer;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;adortl;DBXSybaseASEDriver;DBXDb2Driver;vclimg;DataSnapFireDAC;emsclientfiredac;FireDACPgDriver;FireDAC;FireDACDSDriver;inetdbxpress;xmlrtl;tethering;bindcompvcl;dsnap;CloudService;DBXSybaseASADriver;DBXOracleDriver;FireDACDb2Driver;DBXInformixDriver;fmxobj;bindcompvclsmp;DataSnapNativeClient;FMXTee;DatasnapConnectorsFreePascal;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -97,8 +97,8 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>..\Imagens\logo.ico</Icon_MainIcon>
         <DCC_ExeOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\Bin\</DCC_ExeOutput>
-        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCP\</DCC_DcpOutput>
-        <DCC_DcuOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCP\</DCC_DcuOutput>
+        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcpOutput>
+        <DCC_DcuOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -112,8 +112,9 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_ExeOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\Bin</DCC_ExeOutput>
-        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\BinDCU\</DCC_DcpOutput>
+        <DCC_DcpOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcpOutput>
         <Icon_MainIcon>..\Imagens\logo.ico</Icon_MainIcon>
+        <DCC_DcuOutput>E:\Massini\Documentos\GitHub\ConsultaCEP\DCU\</DCC_DcuOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -174,16 +175,16 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\SoftplanConsultaCep\SoftplanConsultaCep.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>SoftplanConsultaCep.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="D:\SoftPlan 2024\Imagens\Captura de tela 2024-07-07 233332.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
                         <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="C:\SoftplanConsultaCep\SoftplanConsultaCep.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SoftplanConsultaCep.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1002,10 +1003,10 @@
                 </DeployClass>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
