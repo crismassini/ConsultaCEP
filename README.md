@@ -102,7 +102,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 - Units: ✨ Pasta onde estão todas as units do projeto (**códigos-fonte**)
 
-- Script_Criação_BD.sql: ✨ Arquivos com script de geração do banco de dados. Porém é **OPCIONAL**, pois já existe o arquivo do banco na pasta Bin\Database.
+- Script_Criação_BD.sql: ✨ Script de geração do banco de dados. Porém é **OPCIONAL**, pois já existe o arquivo do banco na pasta Bin\Database.
 
 ---
 
@@ -111,7 +111,9 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 💡A aplicação até abre sem o banco de dados, porém acontecerá um erro após consultar o cep.
 
-Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [Site](https://firebirdsql.org/en/firebird-2-5/)
+💡Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [Site](https://firebirdsql.org/en/firebird-2-5/)
+
+💡Utilize como senha do banco, o padrão default do Firebird: **USER 'SYSDBA' PASSWORD 'masterkey'**
 
 ---
 
