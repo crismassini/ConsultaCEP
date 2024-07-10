@@ -64,7 +64,13 @@ O layout da aplicação é bem simples e objetivo:
 
 ---
 
-## 🚀 Entendendo as pastas do projeto
+## 🚀 Como executar o projeto
+
+💡Baixar todo o repositorio do git e descompactar de preferencia numa pasta na unidade c:
+
+---
+
+### 🚀 Entendendo as pastas do projeto
 
 <h1 align="center">
     <img alt="Pastas" title="#Pastas" src="./Imagens/diretorio.png" />
@@ -96,21 +102,13 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ---
 
-## 🚀 Como executar o projeto
-
-💡Baixar todo o repositorio do git e descompactar de preferencia numa pasta na unidade c:
-
----
-
 #### 1) Instalação Firebird🎲
 
-```bash
 💡A aplicação até abre sem o banco de dados, porém acontecerá um erro após consultar o cep.
 
 Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [Site](https://firebirdsql.org/en/firebird-2-5/)
-```
 
-#### 🧭 Rodando a aplicação
+### 🧭 Rodando a aplicação
 
 Ao compilar o projeto no Delphi, será gerado o arquivo **SoftplanConsultaCep.exe** dentro da pasta Bin.
 
