@@ -44,7 +44,7 @@ Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5
 
 ## ⚙️ Funcionalidades
 
-- [x] Consulta Cep via Json:
+- [x] **Consulta Cep via Json:**
 
   - [x] Utilizando o código do CEP
   - [x] Utilizando o Estado, Cidade, e nome da Rua
@@ -53,7 +53,14 @@ Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5
   - [x] Se já existe, atualiza o CEP na base de dados
   - [x] Se não existe, insere o CEP na base de dados
 
-- [x] Consulta Cep via Xml: 🚧 Em Construção 🚀 🚧
+- [x] **Consulta Cep via Xml:**
+  - [x] Utilizando o código do CEP
+  - [ ] Utilizando o Estado, Cidade, e nome da Rua   🚧 Em Construção 🚀 🚧
+
+- [x] Grava na base de dados o CEP pesquisado
+  - [x] Se já existe, atualiza o CEP na base de dados
+  - [x] Se não existe, insere o CEP na base de dados
+
 ---
 
 ## 🎨 Layout
