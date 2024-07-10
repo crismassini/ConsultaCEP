@@ -1,0 +1,24 @@
+program SoftplanConsultaCep;
+
+uses
+  Vcl.Forms,
+  View.Principal in '..\Units\View.Principal.pas' {frmPrincipal},
+  uLogin in '..\Units\uLogin.pas' {frmLogin},
+  View.frmBase in '..\Units\View.frmBase.pas' {frmBase},
+  View.frmSobre in '..\Units\View.frmSobre.pas' {frmSobre},
+  View.frmConsultarCEP in '..\Units\View.frmConsultarCEP.pas' {frmConsultarCEP},
+  uConexao in '..\Units\uConexao.pas',
+  uAuxiliar in '..\Units\uAuxiliar.pas',
+  model.Cep in '..\Units\model.Cep.pas',
+  Dao.Cep in '..\Units\Dao.Cep.pas',
+  Control.Cep in '..\Units\Control.Cep.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  //  Application.CreateForm(TConexao, Conexao);
+  Application.Run;
+end.

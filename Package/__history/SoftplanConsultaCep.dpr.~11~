@@ -1,0 +1,21 @@
+program SoftplanConsultaCep;
+
+uses
+  Vcl.Forms,
+  uPrincipal in '..\Units\uPrincipal.pas' {frmPrincipal},
+  uLogin in '..\Units\uLogin.pas' {frmLogin},
+  ufrmBase in '..\Units\ufrmBase.pas' {frmBase},
+  ufrmSobre in '..\Units\ufrmSobre.pas' {frmSobre},
+  ufrmConsultarCEP in '..\Units\ufrmConsultarCEP.pas' {frmConsultarCEP},
+//  udtmConexao in '..\DataModule\udtmConexao.pas' {Conexao: TDataModule},
+  uConexao in '..\Units\uConexao.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+//  Application.CreateForm(TConexao, Conexao);
+  Application.Run;
+end.

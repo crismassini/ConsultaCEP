@@ -1,0 +1,296 @@
+unit View.ConsultarCEP;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls,
+  View.frmBase, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Vcl.StdCtrls, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Grids, Vcl.DBGrids, REST.Types, REST.Response.Adapter, REST.Client,
+  Data.Bind.Components, Data.Bind.ObjectScope, Control.Cep, Model.Cep;
+
+type
+  TfrmConsultarCEP = class(TfrmBase)
+    edtCEP: TEdit;
+    edtComplemento: TEdit;
+    edtLogradouro: TEdit;
+    edtBairro: TEdit;
+    edtLocalidade: TEdit;
+    edtUf: TEdit;
+    Label1: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    btnConsultaCEP: TButton;
+    dsCEPCadastrado: TDataSource;
+    rdgMetodo: TRadioGroup;
+    RESTClient1: TRESTClient;
+    RESTRequest1: TRESTRequest;
+    RESTResponse1: TRESTResponse;
+    RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
+    fdRetornoConsulta: TFDMemTable;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    dbgCepCadastrado: TDBGrid;
+    dbgRetornoConsulta: TDBGrid;
+    fdCepCadastrado: TFDMemTable;
+    dsRetornoConsulta: TDataSource;
+    fdRetornoConsultacep: TWideStringField;
+    fdRetornoConsultalogradouro: TWideStringField;
+    fdRetornoConsultacomplemento: TWideStringField;
+    fdRetornoConsultaunidade: TWideStringField;
+    fdRetornoConsultabairro: TWideStringField;
+    fdRetornoConsultalocalidade: TWideStringField;
+    fdRetornoConsultauf: TWideStringField;
+    fdRetornoConsultaibge: TIntegerField;
+    fdRetornoConsultagia: TIntegerField;
+    fdRetornoConsultaddd: TIntegerField;
+    fdRetornoConsultasiafi: TIntegerField;
+    btnConsultaLogradouro: TButton;
+    procedure btnConsultaCEPClick(Sender: TObject);
+    procedure edtCEPEnter(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure dbgCepCadastradoDblClick(Sender: TObject);
+    procedure dbgCepCadastradoCellClick(Column: TColumn);
+  private
+    { Private declarations }
+    FCepControl: TCepControl;
+    procedure ConsultaCEP(ACep: string);
+    procedure PopulaEdits(AMemtable: TFDMemTable);
+    procedure LimpaEdits;
+    procedure IncluirCep(AMemtable: TFDMemTable);
+    procedure AtualizarCep(AMemtable: TFDMemTable);    
+    procedure CarregarCeps;
+    procedure ConsultaViaJson(AResource: string);
+    procedure ConsultaViaXML;
+  public
+    { Public declarations }
+  end;
+
+const
+  _BASE_URL = 'https://viacep.com.br/ws';
+
+var
+  frmConsultarCEP: TfrmConsultarCEP;
+
+implementation
+
+uses
+  uAuxiliar;
+
+{$R *.dfm}
+
+procedure TfrmConsultarCEP.btnConsultaCEPClick(Sender: TObject);
+begin
+  inherited;
+  ConsultaCep(SoNumero(edtCEP.Text));
+end;
+
+procedure TfrmConsultarCEP.ConsultaCEP(ACep: string);
+var
+  sMetodoConsulta: string;
+begin
+  //Valida se o tem 8 digitos
+  if ACep.Length <> 8 then
+  begin
+    MessageDlg('CEP inválido!', mtInformation, [mbOk], 0);
+    Exit
+  end;
+  //Valida o método de consulta
+  if rdgMetodo.ItemIndex = -1 then
+  begin
+    MessageDlg('Selecione um método de consulta!', mtInformation, [mbOk], 0);
+    rdgMetodo.SetFocus;
+    Exit;
+  end
+  else if rdgMetodo.ItemIndex = 0 then //json
+  begin
+    ConsultaViaJson(ACep + '/json');
+  end
+  else                                 //XML  
+  begin
+    ConsultaViaXML;
+  end;
+
+  CarregarCeps;  
+end;
+
+procedure TfrmConsultarCEP.edtCEPEnter(Sender: TObject);
+begin
+  inherited;
+  if edtCEP.Text <> EmptyStr then
+  begin
+    LimpaEdits;
+    fdRetornoConsulta.Close;
+  end;
+
+end;
+
+procedure TfrmConsultarCEP.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCepControl := TCepControl.Create;
+end;
+
+procedure TfrmConsultarCEP.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FreeAndNil(FCepControl);
+end;
+
+procedure TfrmConsultarCEP.FormShow(Sender: TObject);
+begin
+  inherited;
+  CarregarCeps;
+end;
+
+procedure TfrmConsultarCEP.PopulaEdits(AMemtable: TFDMemTable);
+begin
+  with AMemtable do
+  begin
+    edtCEP.Text         := FieldByName('cep').AsString;
+    edtLogradouro.Text  := FieldByName('logradouro').AsString;
+    edtComplemento.Text := FieldByName('complemento').AsString;
+    edtBairro.Text      := FieldByName('bairro').AsString;
+    edtLocalidade.Text  := FieldByName('localidade').AsString;
+    edtUf.Text          := FieldByName('uf').AsString;
+  end;
+end;
+
+procedure TfrmConsultarCEP.IncluirCep(AMemtable: TFDMemTable);
+var
+  FCep: TCepModel; 
+begin
+  FCep := FCepControl.CepModel;
+
+  with AMemtable do
+  begin
+    FCep.Acao := uAuxiliar.tacIncluir;
+    FCep.Codigo := FCepControl.GetId(1);
+    FCep.Cep         := SoNumero(FieldByName('cep').AsString);
+    FCep.Logradouro  := FieldByName('logradouro').AsString;
+    FCep.Complemento := FieldByName('complemento').AsString;
+    FCep.Bairro      := FieldByName('bairro').AsString;
+    FCep.Localidade  := FieldByName('localidade').AsString;
+    FCep.Uf          := FieldByName('uf').AsString;
+
+    if FCepControl.CepModel.Salvar then
+      MessageDlg('Cep cadastrado com sucesso', mtConfirmation, [mbOk], 0);
+  end;
+end;
+
+procedure TfrmConsultarCEP.AtualizarCep(AMemtable: TFDMemTable);
+var
+  FCep: TCepModel; 
+begin
+  FCep := FCepControl.CepModel;
+
+  with AMemtable do
+  begin
+    FCep.Acao := uAuxiliar.tacAlterar;
+    FCep.Cep         := SoNumero(FieldByName('cep').AsString);
+    FCep.Logradouro  := FieldByName('logradouro').AsString;
+    FCep.Complemento := FieldByName('complemento').AsString;
+    FCep.Bairro      := FieldByName('bairro').AsString;
+    FCep.Localidade  := FieldByName('localidade').AsString;
+    FCep.Uf          := FieldByName('uf').AsString;
+
+    if FCep.Salvar then
+      MessageDlg('Cep Atualizado com sucesso', mtConfirmation, [mbOk], 0);
+  end;
+end;
+
+procedure TfrmConsultarCEP.CarregarCeps;
+var
+  VQry: TFDQuery;
+begin
+  fdCepCadastrado.Close;
+
+  VQry := FCepControl.Obter;    
+  try
+    VQry.FetchAll;
+    fdCepCadastrado.Data := VQry.Data;
+  finally
+    VQry.Close;
+    FreeAndNil(VQry)
+  end;
+end;
+
+procedure TfrmConsultarCEP.ConsultaViaJson(AResource: string);
+begin
+  RESTClient1.BaseURL := _BASE_URL;
+
+  with RESTRequest1 do
+  begin
+    Resource := AResource;
+    Execute;
+    
+    if Response.StatusCode = 200 then //Consulta realizada com sucesso
+    begin
+
+      if Response.Content.Indexof('erro') > 0 then  //quando nao encontra o cep da base via cep
+        MessageDlg('Cep não encontrado!', mtInformation, [mbOk], 0)
+      else
+      begin
+        fdRetornoConsulta.Open;
+
+        if fdRetornoConsulta.RecordCount > 0 then
+        begin
+          PopulaEdits(fdRetornoConsulta);
+
+          if FCepControl.Existe(SoNumero(edtCEP.Text)) then //verifica se o cep ja existe na base de dados
+          begin
+            if MessageDlg('Este CEP já existe na base de dados, deseja atualizar?', mtInformation, [mbYes, mbNo], 0 )= mrYes then
+            begin
+              AtualizarCep(fdRetornoConsulta);
+            end;
+          end
+          else //se não existe inclui o Cep
+            IncluirCep(fdRetornoConsulta);       
+        end;
+      end;
+    end
+    else //Se não conseguir consultar a base da via cep, mensagem de erro
+      MessageDlg('Erro ao consultar Cep', mtError, [mbOk], 0);
+  end;
+end;
+
+procedure TfrmConsultarCEP.ConsultaViaXML;
+begin
+  MessageDlg('Consulta via XML ainda não implementada.', mtError, [mbOk], 0);
+end;
+
+procedure TfrmConsultarCEP.dbgCepCadastradoCellClick(Column: TColumn);
+begin
+  inherited;
+  PopulaEdits(fdCepCadastrado);
+end;
+
+procedure TfrmConsultarCEP.dbgCepCadastradoDblClick(Sender: TObject);
+begin
+  inherited;
+  PopulaEdits(fdCepCadastrado);
+end;
+
+procedure TfrmConsultarCEP.LimpaEdits;
+var
+  i: integer;
+begin
+  for i := Self.ComponentCount -1 downto 0 do
+  begin
+  if (Self.Components[i] is TEdit) then
+     (Self.Components[i] as TEdit).text := '';
+  end;
+end;
+
+
+
+
+
+end.

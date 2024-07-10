@@ -1,0 +1,25 @@
+unit View.frmConsultarCEP;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmBase, Vcl.ExtCtrls, Vcl.ComCtrls,
+  View.frmBase;
+
+type
+  TfrmConsultarCEP = class(TfrmBase)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConsultarCEP: TfrmConsultarCEP;
+
+implementation
+
+{$R *.dfm}
+
+end.

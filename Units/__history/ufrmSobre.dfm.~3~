@@ -1,0 +1,48 @@
+inherited frmSobre: TfrmSobre
+  Caption = 'frmSobre'
+  ClientHeight = 323
+  ClientWidth = 597
+  ExplicitWidth = 613
+  ExplicitHeight = 362
+  PixelsPerInch = 96
+  TextHeight = 15
+  inherited stbHora: TStatusBar
+    Top = 304
+    Width = 597
+    ExplicitLeft = 0
+    ExplicitTop = 275
+    ExplicitWidth = 495
+  end
+  object Panel1: TPanel [1]
+    Left = 0
+    Top = 0
+    Width = 597
+    Height = 304
+    Align = alClient
+    TabOrder = 1
+    ExplicitLeft = 160
+    ExplicitTop = 152
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+    object Label1: TLabel
+      Left = 192
+      Top = 32
+      Width = 185
+      Height = 15
+      Caption = 'Desenvolvido por Cristhian Massini'
+    end
+    object LinkLabel1: TLinkLabel
+      Left = 272
+      Top = 144
+      Width = 40
+      Height = 19
+      Caption = '<a href="github.com/crismassini">Github</a>'
+      TabOrder = 0
+      OnClick = LinkLabel1Click
+    end
+  end
+  inherited Timer1: TTimer
+    Left = 8
+    Top = 8
+  end
+end
