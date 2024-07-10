@@ -9,7 +9,10 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Vcl.StdCtrls, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.Grids, Vcl.DBGrids, REST.Types, REST.Response.Adapter, REST.Client,
-  Data.Bind.Components, Data.Bind.ObjectScope, System.UITypes, Control.Cep, Model.Cep;
+  Data.Bind.Components, Data.Bind.ObjectScope, System.UITypes, Control.Cep, Model.Cep,
+  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc, IdBaseComponent, IdComponent,
+  IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL,
+  Xml.Win.msxmldom;
 
 type
   TfrmConsultarCEP = class(TfrmBase)
@@ -51,6 +54,8 @@ type
     fdRetornoConsultaddd: TIntegerField;
     fdRetornoConsultasiafi: TIntegerField;
     btnConsultaLogradouro: TButton;
+    XMLDocument1: TXMLDocument;
+    SSLIO: TIdSSLIOHandlerSocketOpenSSL;
     procedure btnConsultaCEPClick(Sender: TObject);
     procedure edtCEPEnter(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -165,6 +170,7 @@ end;
 
 procedure TfrmConsultarCEP.ConsultaCEP(ACep: string);
 begin
+  dsRetornoConsulta.DataSet.Close;
   //Valida se o tem 8 digitos
   if ACep.Length <> 8 then
   begin
@@ -184,7 +190,7 @@ begin
   end
   else                                 //XML  
   begin
-    ConsultaViaXML(ACep + '/json');
+    ConsultaViaXML(ACep + '/xml');
   end;
 
   CarregarCeps;  
@@ -223,7 +229,8 @@ begin
   end
   else                                 //XML  
   begin
-    ConsultaViaXML(AUf + '/' + ALocalidade + '/' + ALogradouro + '/xml');;
+//    ConsultaViaXML(AUf + '/' + ALocalidade + '/' + ALogradouro + '/xml');;
+    MessageDlg('Consulta por Logradouro via XML em construção!', mtInformation, [mbOk], 0);
   end;
 
   CarregarCeps;  
@@ -337,8 +344,90 @@ begin
 end;
 
 procedure TfrmConsultarCEP.ConsultaViaXML(AResource: string);
+var
+  tempXML :IXMLNode;
+  tempNodePAI :IXMLNode;
+  tempNodeFilho :IXMLNode;
+  I :Integer;
 begin
-  MessageDlg('Consulta via XML ainda não implementada.', mtError, [mbOk], 0);
+  XMLDocument1.FileName := _BASE_URL + AResource;
+  XMLDocument1.Active := true;
+  tempXML := XMLDocument1.DocumentElement;
+
+  with fdRetornoConsulta do
+  begin
+    Open;
+    Append;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('cep');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('cep').AsString :=  SoNumero(tempNodeFilho.Text);
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('logradouro');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('logradouro').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('bairro');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('bairro').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('localidade');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('localidade').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('uf');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('uf').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('ibge');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('ibge').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('gia');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('gia').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('ddd');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('ddd').AsString :=  tempNodeFilho.Text;
+    end;
+
+    tempNodePAI := tempXML.ChildNodes.FindNode('siafi');
+    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    begin
+      tempNodeFilho := tempNodePAI.ChildNodes[i];
+      FieldByName('siafi').AsString :=  tempNodeFilho.Text;
+    end;
+    Post;
+
+    if RecordCount = 1 then //Se o retornar apenas 1 registro, verifica se existe e grava ou atualiza
+    begin
+      GravaRetorno;
+    end
+  end;
 end;
 
 procedure TfrmConsultarCEP.GravaRetorno;

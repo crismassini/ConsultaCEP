@@ -1,0 +1,75 @@
+<XmlTransformation Version="1.0"><Transform Direction="ToCds"><SelectEach dest="DATAPACKET\ROWDATA\ROW" from="\xmlcep\enderecos\endereco"><Select dest="@cep" from="\cep"/><Select dest="@logradouro" from="\logradouro"/><Select dest="@complemento" from="\complemento"/><Select dest="@unidade" from="\unidade"/><Select dest="@bairro" from="\bairro"/><Select dest="@localidade" from="\localidade"/><Select dest="@uf" from="\uf"/><Select dest="@ibge" from="\ibge"/><Select dest="@gia" from="\gia"/><Select dest="@ddd" from="\ddd"/><Select dest="@siafi" from="\siafi"/></SelectEach></Transform><XmlSchema RootName="xmlcep"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="xmlcep" type="xmlcepType"/>
+  <xs:complexType name="xmlcepType">
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="enderecos" type="enderecosType"/>
+    </sequence>
+  </xs:complexType>
+  <xs:element name="enderecos" type="enderecosType"/>
+  <xs:complexType name="enderecosType">
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="endereco" type="enderecoType" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </xs:complexType>
+  <xs:element name="endereco" type="enderecoType"/>
+  <xs:complexType name="enderecoType">
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="cep" type="cepType"/>
+      <xs:element name="logradouro" type="logradouroType"/>
+      <xs:element name="complemento" type="complementoType"/>
+      <xs:element name="unidade" type="unidadeType"/>
+      <xs:element name="bairro" type="bairroType"/>
+      <xs:element name="localidade" type="localidadeType"/>
+      <xs:element name="uf" type="ufType"/>
+      <xs:element name="ibge" type="ibgeType"/>
+      <xs:element name="gia" type="giaType"/>
+      <xs:element name="ddd" type="dddType"/>
+      <xs:element name="siafi" type="siafiType"/>
+    </sequence>
+  </xs:complexType>
+  <xs:element name="cep" type="cepType"/>
+  <xs:simpleType name="cepType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="logradouro" type="logradouroType"/>
+  <xs:simpleType name="logradouroType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="complemento" type="complementoType"/>
+  <xs:simpleType name="complementoType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="unidade" type="unidadeType"/>
+  <xs:simpleType name="unidadeType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="bairro" type="bairroType"/>
+  <xs:simpleType name="bairroType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="localidade" type="localidadeType"/>
+  <xs:simpleType name="localidadeType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="uf" type="ufType"/>
+  <xs:simpleType name="ufType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="ibge" type="ibgeType"/>
+  <xs:simpleType name="ibgeType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="gia" type="giaType"/>
+  <xs:simpleType name="giaType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="ddd" type="dddType"/>
+  <xs:simpleType name="dddType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="siafi" type="siafiType"/>
+  <xs:simpleType name="siafiType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+</xs:schema>]]></XmlSchema><CdsSkeleton/><XslTransform/><Skeleton><![CDATA[<?xml version="1.0"?><DATAPACKET Version="2.0"><METADATA><FIELDS><FIELD attrname="cep" fieldtype="string" WIDTH="9"/><FIELD attrname="logradouro" fieldtype="string" WIDTH="24"/><FIELD attrname="complemento" fieldtype="string" WIDTH="32"/><FIELD attrname="unidade" fieldtype="string" WIDTH="32"/><FIELD attrname="bairro" fieldtype="string" WIDTH="17"/><FIELD attrname="localidade" fieldtype="string" WIDTH="9"/><FIELD attrname="uf" fieldtype="string" WIDTH="2"/><FIELD attrname="ibge" fieldtype="string" WIDTH="7"/><FIELD attrname="gia" fieldtype="string" WIDTH="4"/><FIELD attrname="ddd" fieldtype="string" WIDTH="2"/><FIELD attrname="siafi" fieldtype="string" WIDTH="4"/></FIELDS><PARAMS/></METADATA><ROWDATA/><METADATA><FIELDS><FIELD attrname="cep" fieldtype="string" WIDTH="9"/><FIELD attrname="logradouro" fieldtype="string" WIDTH="24"/><FIELD attrname="complemento" fieldtype="string" WIDTH="32"/><FIELD attrname="unidade" fieldtype="string" WIDTH="32"/><FIELD attrname="bairro" fieldtype="string" WIDTH="17"/><FIELD attrname="localidade" fieldtype="string" WIDTH="9"/><FIELD attrname="uf" fieldtype="string" WIDTH="2"/><FIELD attrname="ibge" fieldtype="string" WIDTH="7"/><FIELD attrname="gia" fieldtype="string" WIDTH="4"/><FIELD attrname="ddd" fieldtype="string" WIDTH="2"/><FIELD attrname="siafi" fieldtype="string" WIDTH="4"/></FIELDS><PARAMS/></METADATA><ROWDATA/></DATAPACKET>
+]]></Skeleton></XmlTransformation>

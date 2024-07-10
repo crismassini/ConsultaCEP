@@ -307,7 +307,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     BaseURL = 'https://viacep.com.br/ws'
     Params = <>
     Left = 680
-    Top = 88
+    Top = 64
   end
   object RESTRequest1: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -316,20 +316,20 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Resource = '07131320/json'
     Response = RESTResponse1
     Left = 584
-    Top = 24
+    Top = 11
   end
   object RESTResponse1: TRESTResponse
     ContentType = 'application/json'
     Left = 672
-    Top = 16
+    Top = 13
   end
   object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
     Dataset = fdRetornoConsulta
     FieldDefs = <>
     Response = RESTResponse1
     TypesMode = Rich
-    Left = 592
-    Top = 88
+    Left = 585
+    Top = 65
   end
   object fdRetornoConsulta: TFDMemTable
     FieldDefs = <>
@@ -402,5 +402,20 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     DataSet = fdRetornoConsulta
     Left = 632
     Top = 242
+  end
+  object XMLDocument1: TXMLDocument
+    Left = 672
+    Top = 128
+    DOMVendorDesc = 'MSXML'
+  end
+  object SSLIO: TIdSSLIOHandlerSocketOpenSSL
+    MaxLineAction = maException
+    Port = 0
+    DefaultPort = 0
+    SSLOptions.Mode = sslmUnassigned
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 584
+    Top = 128
   end
 end
