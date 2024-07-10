@@ -26,6 +26,7 @@
  <a href="#-funcionalidades">Funcionalidades</a> •
  <a href="#-layout">Layout</a> • 
  <a href="#-como-executar-o-projeto">Como executar</a> • 
+<a href="#-entendendo-as-pastas-do-projeto">Entendendo as pastas do projeto</a> • 	
  <a href="#-autor">Autor</a> • 
 </p>
 
@@ -43,7 +44,7 @@ Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5
 
 ## ⚙️ Funcionalidades
 
-- [x] Consulta Cep:
+- [x] Consulta Cep via Json:
 
   - [x] Utilizando o código do CEP
   - [x] Utilizando o Estado, Cidade, e nome da Rua
@@ -52,6 +53,7 @@ Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5
   - [x] Se já existe, atualiza o CEP na base de dados
   - [x] Se não existe, insere o CEP na base de dados
 
+- [x] Consulta Cep via Xml: 🚧 Em Construção 🚀 🚧
 ---
 
 ## 🎨 Layout
@@ -112,6 +114,12 @@ Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [
 
 
 💡**Acertar os diretórios de compilação do projeto no menu Project>Options>Delphi Compiler> Target**
+
+- 💡**DCP output directory >>> Diretório onde descompactou\ConsultaCEP\DCU**
+
+- 💡**Output directory >>> Diretório onde descompactou\ConsultaCEP\Bin**
+
+- 💡**Unit output directory >>> Diretório onde descompactou\ConsultaCEP\DCU**
 
 
 <h1 align="center">
