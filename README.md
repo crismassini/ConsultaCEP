@@ -155,9 +155,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 🦸 Autor
 
-Feito com ❤️ por <b>🚀[Cristhian Massini](https://www.facebook.com/cristhian.massini)</b> 👋🏽 [Entre em contato!](https://www.linkedin.com/in/crismassini/)
+Feito com ❤️ por <b>🚀[Cristhian Massini](https://www.facebook.com/cristhian.massini)</b> 👋🏽 [Entre em contato!](https://www.linkedin.com/in/cristhianmassini/)
 
-[![Twitter Badge](https://img.shields.io/badge/-@cris_massini-1ca0f1?style=flat-square&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/cris_massini)](https://twitter.com/cris_massini) [![Linkedin Badge](https://img.shields.io/badge/-Cristhian-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/crismassini/)](https://www.linkedin.com/in/crismassini/)
+[![Twitter Badge](https://img.shields.io/badge/-@cris_massini-1ca0f1?style=flat-square&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/cris_massini)](https://twitter.com/cris_massini) [![Linkedin Badge](https://img.shields.io/badge/-Cristhian-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/crismassini/)](https://www.linkedin.com/in/cristhianmassini/)
 [![Gmail Badge](https://img.shields.io/badge/-massini.cristhian@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:massini.cristhian@gmail.com)](mailto:massini.cristhian@gmail.com)
 
 ---
