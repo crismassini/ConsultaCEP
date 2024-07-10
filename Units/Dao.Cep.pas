@@ -2,7 +2,7 @@ unit Dao.Cep;
 
 interface
 uses
-  FireDAC.Comp.Client, uConexao, Model.Cep, System.SysUtils, Vcl.Dialogs;
+  FireDAC.Comp.Client, Control.Conexao, Model.Cep, System.SysUtils, Vcl.Dialogs;
 type
   TCepDao = class
   private

@@ -5,7 +5,7 @@ uses
   View.frmBase in '..\Units\View.frmBase.pas' {frmBase},
   View.Sobre in '..\Units\View.Sobre.pas' {frmSobre},
   View.ConsultarCEP in '..\Units\View.ConsultarCEP.pas' {frmConsultarCEP},
-  uConexao in '..\Units\uConexao.pas',
+  Control.Conexao in '..\Units\Control.Conexao.pas',
   uAuxiliar in '..\Units\uAuxiliar.pas',
   model.Cep in '..\Units\model.Cep.pas',
   Dao.Cep in '..\Units\Dao.Cep.pas',

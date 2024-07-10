@@ -132,7 +132,7 @@
             <Form>frmConsultarCEP</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Units\uConexao.pas"/>
+        <DCCReference Include="..\Units\Control.Conexao.pas"/>
         <DCCReference Include="..\Units\uAuxiliar.pas"/>
         <DCCReference Include="..\Units\model.Cep.pas"/>
         <DCCReference Include="..\Units\Dao.Cep.pas"/>

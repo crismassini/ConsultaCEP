@@ -69,10 +69,11 @@ type
     procedure PopulaEdits(AMemtable: TFDMemTable);
     procedure LimpaEdits;
     procedure IncluirCep(AMemtable: TFDMemTable);
-    procedure AtualizarCep(AMemtable: TFDMemTable);    
+    procedure AtualizarCep(AMemtable: TFDMemTable);
     procedure CarregarCeps;
     procedure ConsultaViaJson(AResource: string);
     procedure ConsultaViaXML(AResource: string);
+    procedure GravaRetorno;
   public
     { Public declarations }
   end;
@@ -90,6 +91,26 @@ uses
 
 {$R *.dfm}
 
+{$REGION 'Controles da tela'}
+procedure TfrmConsultarCEP.dbgCepCadastradoCellClick(Column: TColumn);
+begin
+  inherited;
+  PopulaEdits(fdCepCadastrado);
+end;
+
+procedure TfrmConsultarCEP.dbgCepCadastradoDblClick(Sender: TObject);
+begin
+  inherited;
+  PopulaEdits(fdCepCadastrado);
+end;
+
+procedure TfrmConsultarCEP.dbgRetornoConsultaDblClick(Sender: TObject);
+begin
+  inherited;
+  GravaRetorno;
+  CarregarCeps;
+end;
+
 procedure TfrmConsultarCEP.btnConsultaCEPClick(Sender: TObject);
 begin
   inherited;
@@ -101,6 +122,46 @@ begin
   inherited;
   ConsultaCEPporEndereco(edtUf.Text, edtLocalidade.Text, edtLogradouro.Text);
 end;
+
+procedure TfrmConsultarCEP.edtCEPEnter(Sender: TObject);
+begin
+  inherited;
+  if edtCEP.Text <> EmptyStr then
+  begin
+    LimpaEdits;
+    fdRetornoConsulta.Close;
+  end;
+end;
+
+procedure TfrmConsultarCEP.edtLogradouroEnter(Sender: TObject);
+begin
+  inherited;
+  if edtCEP.Text <> EmptyStr then
+  begin
+    LimpaEdits;
+    fdRetornoConsulta.Close;
+  end;
+end;
+
+procedure TfrmConsultarCEP.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FCepControl := TCepControl.Create;
+end;
+
+procedure TfrmConsultarCEP.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  FreeAndNil(FCepControl);
+end;
+
+procedure TfrmConsultarCEP.FormShow(Sender: TObject);
+begin
+  inherited;
+  CarregarCeps;
+end;
+
+{$ENDREGION}
 
 procedure TfrmConsultarCEP.ConsultaCEP(ACep: string);
 begin
@@ -166,45 +227,6 @@ begin
   end;
 
   CarregarCeps;  
-end;
-
-procedure TfrmConsultarCEP.edtCEPEnter(Sender: TObject);
-begin
-  inherited;
-  if edtCEP.Text <> EmptyStr then
-  begin
-    LimpaEdits;
-    fdRetornoConsulta.Close;
-  end;
-end;
-
-procedure TfrmConsultarCEP.edtLogradouroEnter(Sender: TObject);
-begin
-  inherited;
-  if edtCEP.Text <> EmptyStr then
-  begin
-    LimpaEdits;
-    fdRetornoConsulta.Close;
-  end;
-
-end;
-
-procedure TfrmConsultarCEP.FormCreate(Sender: TObject);
-begin
-  inherited;
-  FCepControl := TCepControl.Create;
-end;
-
-procedure TfrmConsultarCEP.FormDestroy(Sender: TObject);
-begin
-  inherited;
-  FreeAndNil(FCepControl);
-end;
-
-procedure TfrmConsultarCEP.FormShow(Sender: TObject);
-begin
-  inherited;
-  CarregarCeps;
 end;
 
 procedure TfrmConsultarCEP.PopulaEdits(AMemtable: TFDMemTable);
@@ -299,17 +321,7 @@ begin
 
         if fdRetornoConsulta.RecordCount = 1 then //Se o retornar apenas 1 registro, verifica se existe e grava ou atualiza
         begin
-          PopulaEdits(fdRetornoConsulta);
-
-          if FCepControl.Existe(SoNumero(edtCEP.Text)) then //verifica se o cep ja existe na base de dados
-          begin
-            if MessageDlg('Este CEP já existe na base de dados, deseja atualizar?', mtInformation, [mbYes, mbNo], 0 )= mrYes then
-            begin
-              AtualizarCep(fdRetornoConsulta);
-            end;
-          end
-          else //se não existe inclui o Cep
-            IncluirCep(fdRetornoConsulta);       
+          GravaRetorno;
         end
         else if fdRetornoConsulta.RecordCount > 1 then //Consulta por logradouro pode retornar mais de 1 registro
         begin
@@ -329,32 +341,20 @@ begin
   MessageDlg('Consulta via XML ainda não implementada.', mtError, [mbOk], 0);
 end;
 
-procedure TfrmConsultarCEP.dbgCepCadastradoCellClick(Column: TColumn);
+procedure TfrmConsultarCEP.GravaRetorno;
 begin
-  inherited;
-  PopulaEdits(fdCepCadastrado);
-end;
-
-procedure TfrmConsultarCEP.dbgCepCadastradoDblClick(Sender: TObject);
-begin
-  inherited;
-  PopulaEdits(fdCepCadastrado);
-end;
-
-procedure TfrmConsultarCEP.dbgRetornoConsultaDblClick(Sender: TObject);
-begin
-  inherited;
   PopulaEdits(fdRetornoConsulta);
-
-  if FCepControl.Existe(SoNumero(edtCEP.Text)) then //verifica se o cep ja existe na base de dados
+  if FCepControl.Existe(SoNumero(edtCEP.Text)) then
+  //verifica se o cep ja existe na base de dados
   begin
-    if MessageDlg('Este CEP já existe na base de dados, deseja atualizar?', mtInformation, [mbYes, mbNo], 0 )= mrYes then
+    if MessageDlg('Este CEP já existe na base de dados, deseja atualizar?', mtInformation, [mbYes, mbNo], 0) = mrYes then
     begin
       AtualizarCep(fdRetornoConsulta);
     end;
   end
-  else //se não existe inclui o Cep
-    IncluirCep(fdRetornoConsulta);       
+  else
+    //se não existe inclui o Cep
+    IncluirCep(fdRetornoConsulta);
 end;
 
 procedure TfrmConsultarCEP.LimpaEdits;

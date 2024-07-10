@@ -2,7 +2,7 @@ unit Control.Sistema;
 
 interface
 uses
-  uConexao, System.SysUtils;
+  Control.Conexao, System.SysUtils;
 type
   TSistemaControl = class
   private

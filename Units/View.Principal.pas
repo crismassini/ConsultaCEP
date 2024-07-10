@@ -39,7 +39,7 @@ var
 implementation
 
 uses
-  View.Sobre, View.ConsultarCEP, uConexao;
+  View.Sobre, View.ConsultarCEP, Control.Conexao;
 {$R *.dfm}
 
 procedure TfrmPrincipal.actConsultarCEPExecute(Sender: TObject);
