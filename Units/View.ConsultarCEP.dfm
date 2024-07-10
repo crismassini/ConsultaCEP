@@ -76,7 +76,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
   end
   object lblUf: TLabel [5]
     Left = 72
-    Top = 171
+    Top = 166
     Width = 15
     Height = 15
     Caption = 'UF'
@@ -136,6 +136,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Top = 163
     Width = 218
     Height = 23
+    MaxLength = 2
     TabOrder = 5
   end
   object btnConsultaCEP: TButton [13]

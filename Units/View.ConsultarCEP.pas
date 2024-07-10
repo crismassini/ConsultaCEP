@@ -257,8 +257,8 @@ begin
 
   with AMemtable do
   begin
-    FCep.Acao := uAuxiliar.tacIncluir;
-    FCep.Codigo := FCepControl.GetId(1);
+    FCep.Acao        := uAuxiliar.tacIncluir;
+    FCep.Codigo      := FCepControl.GetId(1);
     FCep.Cep         := SoNumero(FieldByName('cep').AsString);
     FCep.Logradouro  := FieldByName('logradouro').AsString;
     FCep.Complemento := FieldByName('complemento').AsString;
@@ -267,7 +267,7 @@ begin
     FCep.Uf          := FieldByName('uf').AsString;
 
     if FCepControl.CepModel.Salvar then
-      MessageDlg('Cep cadastrado com sucesso', mtConfirmation, [mbOk], 0);
+      MessageDlg('CEP cadastrado com sucesso', mtConfirmation, [mbOk], 0);
   end;
 end;
 
@@ -279,7 +279,7 @@ begin
 
   with AMemtable do
   begin
-    FCep.Acao := uAuxiliar.tacAlterar;
+    FCep.Acao        := uAuxiliar.tacAlterar;
     FCep.Cep         := SoNumero(FieldByName('cep').AsString);
     FCep.Logradouro  := FieldByName('logradouro').AsString;
     FCep.Complemento := FieldByName('complemento').AsString;
@@ -288,7 +288,7 @@ begin
     FCep.Uf          := FieldByName('uf').AsString;
 
     if FCep.Salvar then
-      MessageDlg('Cep Atualizado com sucesso', mtConfirmation, [mbOk], 0);
+      MessageDlg('CEP Atualizado com sucesso', mtConfirmation, [mbOk], 0);
   end;
 end;
 
@@ -316,12 +316,11 @@ begin
   begin
     Resource := AResource;
     Execute;
-    
+
     if Response.StatusCode = 200 then //Consulta realizada com sucesso
     begin
-
       if Response.Content.Indexof('erro') > 0 then  //quando nao encontra o cep da base via cep
-        MessageDlg('Cep não encontrado!', mtInformation, [mbOk], 0)
+        MessageDlg('CEP não encontrado ou CEP inválido!', mtInformation, [mbOk], 0)
       else
       begin
         fdRetornoConsulta.Open;
@@ -334,12 +333,14 @@ begin
         begin
           MessageDlg('A consulta retornou mais de 1 registro!' + #10 + #13 +
                      'Selecione no grid de retorno qual registro deseja cadastrar, e de um duplo-clique nele.', mtInformation, [mbok], 0 );
-          dbgRetornoConsulta.SetFocus;           
-        end;
+          dbgRetornoConsulta.SetFocus;
+        end
+        else
+          MessageDlg('CEP não encontrado ou CEP inválido!', mtInformation, [mbOk], 0)
       end;
     end
     else //Se não conseguir consultar a base da via cep, mensagem de erro
-      MessageDlg('Erro ao consultar Cep', mtError, [mbOk], 0);
+      MessageDlg('Erro ao consultar CEP. Código do erro: ' + IntToStr(Response.StatusCode), mtError, [mbOk], 0);
   end;
 end;
 
@@ -348,7 +349,7 @@ var
   tempXML :IXMLNode;
   tempNodePAI :IXMLNode;
   tempNodeFilho :IXMLNode;
-  I :Integer;
+  I, ICountNodes :Integer;
 begin
   XMLDocument1.FileName := _BASE_URL + AResource;
   XMLDocument1.Active := true;
@@ -357,66 +358,67 @@ begin
   with fdRetornoConsulta do
   begin
     Open;
+
     Append;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('cep');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('cep').AsString :=  SoNumero(tempNodeFilho.Text);
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('logradouro');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('logradouro').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('bairro');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('bairro').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('localidade');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('localidade').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('uf');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('uf').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('ibge');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('ibge').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('gia');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('gia').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('ddd');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('ddd').AsString :=  tempNodeFilho.Text;
     end;
 
     tempNodePAI := tempXML.ChildNodes.FindNode('siafi');
-    for i := 0 to tempNodePAI.ChildNodes.Count - 1 do
+    for i := 0 to Pred(tempNodePAI.ChildNodes.Count) do
     begin
       tempNodeFilho := tempNodePAI.ChildNodes[i];
       FieldByName('siafi').AsString :=  tempNodeFilho.Text;
@@ -427,6 +429,13 @@ begin
     begin
       GravaRetorno;
     end
+    else if RecordCount > 1 then
+    begin
+      MessageDlg('A consulta retornou mais de 1 registro!' + #10 + #13 +
+                 'Selecione no grid de retorno qual registro deseja cadastrar, e de um duplo-clique nele.', mtInformation, [mbok], 0 );
+      dbgRetornoConsulta.SetFocus;
+
+    end;
   end;
 end;
 
