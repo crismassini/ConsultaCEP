@@ -66,6 +66,18 @@ O layout da aplicação é bem simples e objetivo:
 
 ---
 
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+
+💡[Firebird 2.5](https://firebirdsql.org/en/firebird-2-5/).
+
+💡Os códigos-fontes podem ser abertos em **algumas versões anteriores do Delphi**, desde que já tenha o componente **Firedac nativo** (a partir de 2010).
+
+💡Minha sugestão para manipulação do Banco de dados, a ferramenta **IBExpert** (o instalador esta no repositório)
+
+---
+
 ## 🚀 Como executar o projeto
 
 💡Baixar todo o repositorio do git e descompactar de preferencia numa pasta na unidade c:
@@ -92,17 +104,6 @@ O layout da aplicação é bem simples e objetivo:
 
 ---
 
-### Pré-requisitos
-
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-
-💡[Firebird 2.5](https://firebirdsql.org/en/firebird-2-5/).
-
-💡Os códigos-fontes podem ser abertos em **algumas versões anteriores do Delphi**, desde que já tenha o componente **Firedac nativo** (a partir de 2010).
-
-💡Minha sugestão para manipulação do Banco de dados, a ferramenta **IBExpert** (o instalador esta no repositório)
-
----
 
 #### 1) Instalação Firebird🎲
 
@@ -110,7 +111,9 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 Utilize o instalador dentro da pasta **Instaladores**, ou baixe diretamente do [Site](https://firebirdsql.org/en/firebird-2-5/)
 
-### 🧭 Rodando a aplicação
+---
+
+### 🧭 Rodando a aplicação no Delphi
 
 
 💡**Acertar os diretórios de compilação do projeto no menu Project>Options>Delphi Compiler> Target**
