@@ -19,12 +19,12 @@ type
     edtBairro: TEdit;
     edtLocalidade: TEdit;
     edtUf: TEdit;
-    Label1: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
+    lblCep: TLabel;
+    lblComplemento: TLabel;
+    lblLogradouro: TLabel;
+    lblBairro: TLabel;
+    lblCidade: TLabel;
+    lblUf: TLabel;
     btnConsultaCEP: TButton;
     dsCEPCadastrado: TDataSource;
     rdgMetodo: TRadioGroup;

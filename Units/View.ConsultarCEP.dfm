@@ -9,12 +9,12 @@ inherited frmConsultarCEP: TfrmConsultarCEP
   ExplicitHeight = 622
   PixelsPerInch = 96
   TextHeight = 15
-  object Label1: TLabel [0]
+  object lblCep: TLabel [0]
     Left = 66
     Top = 19
-    Width = 21
+    Width = 20
     Height = 15
-    Caption = 'Cep'
+    Caption = 'CEP'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -22,7 +22,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label3: TLabel [1]
+  object lblComplemento: TLabel [1]
     Left = 8
     Top = 77
     Width = 79
@@ -35,7 +35,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label4: TLabel [2]
+  object lblLogradouro: TLabel [2]
     Left = 23
     Top = 48
     Width = 64
@@ -48,7 +48,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label5: TLabel [3]
+  object lblBairro: TLabel [3]
     Left = 53
     Top = 108
     Width = 34
@@ -61,12 +61,12 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label6: TLabel [4]
-    Left = 29
+  object lblCidade: TLabel [4]
+    Left = 49
     Top = 137
-    Width = 58
+    Width = 37
     Height = 15
-    Caption = 'Localidade'
+    Caption = 'Cidade'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -74,7 +74,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label7: TLabel [5]
+  object lblUf: TLabel [5]
     Left = 72
     Top = 171
     Width = 15
@@ -90,15 +90,15 @@ inherited frmConsultarCEP: TfrmConsultarCEP
   inherited stbHora: TStatusBar
     Top = 564
     Width = 733
-    ExplicitTop = 461
-    ExplicitWidth = 752
+    ExplicitTop = 564
+    ExplicitWidth = 733
   end
   object edtCEP: TEdit [7]
     Left = 97
     Top = 16
     Width = 217
     Height = 23
-    TabOrder = 1
+    TabOrder = 0
     Text = '07131320'
     OnEnter = edtCEPEnter
   end
@@ -114,7 +114,7 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Top = 45
     Width = 217
     Height = 23
-    TabOrder = 3
+    TabOrder = 1
     OnEnter = edtLogradouroEnter
   end
   object edtBairro: TEdit [10]
@@ -122,21 +122,21 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Top = 105
     Width = 217
     Height = 23
-    TabOrder = 4
+    TabOrder = 3
   end
   object edtLocalidade: TEdit [11]
     Left = 97
     Top = 134
     Width = 217
     Height = 23
-    TabOrder = 5
+    TabOrder = 4
   end
   object edtUf: TEdit [12]
     Left = 96
     Top = 163
     Width = 218
     Height = 23
-    TabOrder = 6
+    TabOrder = 5
   end
   object btnConsultaCEP: TButton [13]
     Left = 320
@@ -172,8 +172,6 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Align = alBottom
     Caption = 'Cep Cadastrados'
     TabOrder = 9
-    ExplicitTop = 355
-    ExplicitWidth = 961
     object dbgCepCadastrado: TDBGrid
       Left = 2
       Top = 17
@@ -201,10 +199,6 @@ inherited frmConsultarCEP: TfrmConsultarCEP
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Retorno Consulta Cep'
     TabOrder = 10
-    ExplicitLeft = 200
-    ExplicitTop = 336
-    ExplicitWidth = 185
-    ExplicitHeight = 105
     object dbgRetornoConsulta: TDBGrid
       Left = 2
       Top = 17
