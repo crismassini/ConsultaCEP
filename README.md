@@ -36,8 +36,6 @@
 
 **No desenvolvimento preferi só conectar ao banco de dados quando for gravar ou atualizar algum dado no banco de dados. Assim evitamos crash da aplicação por falta de conexão ao banco.**
 
-Projeto desenvolvido durante o desafio técnico aplicado pela **[Softplan](https://www.softplan.com.br/)**.
-
 Projeto desenvolvido em **Delphi XE Alexandria** e banco de dados **Firebird 2.5**
 
 ---
